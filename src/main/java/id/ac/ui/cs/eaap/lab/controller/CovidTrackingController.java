@@ -57,6 +57,7 @@ public class CovidTrackingController {
             return "redirect:/covid/add";
         }
 
+        covidTrackerService.add(covidCaseModel);
         redirectAttrs.addFlashAttribute("success",
                 String.format("Kasus baru berhasil disimpan sebagai id %d", covidCaseModel.getCaseId()));
         return "redirect:/covid/view-all";
