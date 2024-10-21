@@ -56,9 +56,7 @@ public class CovidTrackerService {
         List<CovidCaseModel> result = new ArrayList<>();
 
         for (CovidCaseModel caseCovid : allCovidCase) {
-            System.out.println(caseCovid.getNama());
             if(caseCovid.getNama().contains(name)) {
-                System.out.println("masuk");
                 result.add(caseCovid);
             }
         }
