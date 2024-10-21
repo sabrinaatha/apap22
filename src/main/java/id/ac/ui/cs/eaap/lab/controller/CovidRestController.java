@@ -31,7 +31,7 @@ public class CovidRestController {
     @GetMapping("/statistics")
     public ResponseEntity getStatisticsCovidCases() {
         log.info("api statistics covid cases");
-        return ResponseEntity.ok("");
+        return ResponseEntity.ok(covidTrackerService.getStatistics());
     }
 
 

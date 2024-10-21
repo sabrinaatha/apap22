@@ -1,6 +1,7 @@
 package id.ac.ui.cs.eaap.lab.controller;
 
 import id.ac.ui.cs.eaap.lab.model.CovidCaseModel;
+import id.ac.ui.cs.eaap.lab.model.FacultyModel;
 import id.ac.ui.cs.eaap.lab.service.CovidTrackerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ public class ReportController {
 
     @GetMapping(value = "/statistics")
     public String viewStatistics(Model model) {
+        List<FacultyModel> facultyModelList = covidTrackerService.getStatistics();
+        model.addAttribute("facultyList", facultyModelList);
         return "report/report-statistics";
     }
 

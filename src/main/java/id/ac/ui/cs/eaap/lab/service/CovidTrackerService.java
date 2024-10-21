@@ -2,21 +2,22 @@ package id.ac.ui.cs.eaap.lab.service;
 
 
 import id.ac.ui.cs.eaap.lab.model.CovidCaseModel;
+import id.ac.ui.cs.eaap.lab.model.FacultyModel;
 import id.ac.ui.cs.eaap.lab.repository.CovidCaseDb;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Service
 public class CovidTrackerService {
 
     private final CovidCaseDb covidCaseDb;
+    private final ListService listService;
 
-    public CovidTrackerService(CovidCaseDb covidCaseDb) {
+    public CovidTrackerService(CovidCaseDb covidCaseDb, ListService listService) {
         this.covidCaseDb = covidCaseDb;
+        this.listService = listService;
     }
 
     public List<CovidCaseModel> findAll() {
@@ -72,6 +73,19 @@ public class CovidTrackerService {
             }
         }
         return covidCaseActive;
+    }
+
+    public List<FacultyModel> getStatistics() {
+        List<FacultyModel> facultyModels = new ArrayList<>();
+
+        for (String faculty : listService.getFakultasOptionsList()) {
+            List<CovidCaseModel> listCovidByFaculty = covidCaseDb.findByFakultas(faculty);
+            FacultyModel fakultas = new FacultyModel();
+            fakultas.setFakultas(faculty);
+            fakultas.setJumlahKasus(listCovidByFaculty.size());
+            facultyModels.add(fakultas);
+        }
+        return facultyModels;
     }
 }
 
