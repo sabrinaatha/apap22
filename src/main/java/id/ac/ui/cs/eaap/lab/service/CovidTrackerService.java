@@ -62,5 +62,16 @@ public class CovidTrackerService {
         }
         return result;
     }
+
+    public List<CovidCaseModel> getActiveCovidCase() {
+        List<CovidCaseModel> allCovidCase = covidCaseDb.findAll();
+        List<CovidCaseModel> covidCaseActive = new ArrayList<>();
+        for(CovidCaseModel covidCase : allCovidCase) {
+            if(!covidCase.getStatus().equals("sembuh")) {
+                covidCaseActive.add(covidCase);
+            }
+        }
+        return covidCaseActive;
+    }
 }
 

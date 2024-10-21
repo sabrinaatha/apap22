@@ -25,7 +25,7 @@ public class CovidRestController {
     @GetMapping("/active")
     public ResponseEntity getActiveCovidCases() {
         log.info("api get all covid cases");
-        return ResponseEntity.ok("");
+        return ResponseEntity.ok(covidTrackerService.getActiveCovidCase());
     }
 
     @GetMapping("/statistics")
