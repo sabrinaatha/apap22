@@ -50,5 +50,19 @@ public class CovidTrackerService {
         }
         return result;
     }
+
+    public List<CovidCaseModel> findByName(String name) {
+        List<CovidCaseModel> allCovidCase = covidCaseDb.findAll();
+        List<CovidCaseModel> result = new ArrayList<>();
+
+        for (CovidCaseModel caseCovid : allCovidCase) {
+            System.out.println(caseCovid.getNama());
+            if(caseCovid.getNama().contains(name)) {
+                System.out.println("masuk");
+                result.add(caseCovid);
+            }
+        }
+        return result;
+    }
 }
 

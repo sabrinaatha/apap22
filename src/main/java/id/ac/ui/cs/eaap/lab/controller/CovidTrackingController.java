@@ -114,4 +114,14 @@ public class CovidTrackingController {
 
         return "case/detail";
     }
+
+    @GetMapping("/search")
+    public String searchByName(@RequestParam(name = "nama") String name, Model model, RedirectAttributes redirectAttrs) {
+        var listCovid = covidTrackerService.findByName(name);
+        List<Long> countDate = covidTrackerService.getCountDate();
+        model.addAttribute("countDate", countDate);
+        model.addAttribute("caseList", listCovid);
+
+        return "case/view-all-covid-case";
+    }
 }
