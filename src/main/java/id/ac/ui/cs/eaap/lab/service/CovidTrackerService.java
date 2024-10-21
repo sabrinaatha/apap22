@@ -23,6 +23,10 @@ public class CovidTrackerService {
         return covidCaseDb.findAll();
     }
 
+    public CovidCaseModel findById(Long id) {
+        return covidCaseDb.findById(id).orElse(null);
+    }
+
     public List<CovidCaseModel> findActiveCases() {
         return new ArrayList<>();
     }
@@ -32,6 +36,7 @@ public class CovidTrackerService {
     }
 
     public void update(CovidCaseModel covidCaseModel) {
+        covidCaseDb.save(covidCaseModel);
     }
 
     public List<Long> getCountDate() {

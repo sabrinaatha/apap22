@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
@@ -70,6 +67,30 @@ public class CovidTrackingController {
         model.addAttribute("countDate", countDate);
         model.addAttribute("caseList", covidCaseModelList);
         return "case/view-all-covid-case";
+    }
+
+    @GetMapping(value = "/update/{id}")
+    public String updateStatus(@PathVariable Long id, Model model) {
+        CovidCaseModel covidCaseModel = covidTrackerService.findById(id);
+        model.addAttribute("covidCaseModel", covidCaseModel);
+        model.addAttribute("listService", listService);
+
+        return "case/form-update-status-covid";
+    }
+
+    @PostMapping(value = "/update", params = {"save"})
+    public String updateStatus(@ModelAttribute CovidCaseModel covidCaseModel, BindingResult result,
+                               RedirectAttributes redirectAttrs) {
+        if (result.hasErrors()) {
+            redirectAttrs.addFlashAttribute("error", "The error occurred.");
+            return "redirect:/covid/view-all";
+        }
+
+        covidTrackerService.update(covidCaseModel);
+
+        redirectAttrs.addFlashAttribute("success",
+                "Status berhasil di update");
+        return "redirect:/covid/view-all";
     }
 
 }
