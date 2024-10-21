@@ -21,14 +21,15 @@ import java.util.List;
 @RequestMapping("/covid")
 public class CovidTrackingController {
 
-    @Autowired
-    CovidTrackerService covidTrackerService;
+    private final CovidTrackerService covidTrackerService;
+    private final LastContactService lastContactService;
+    private final ListService listService;
 
-    @Autowired
-    LastContactService lastContactService;
-
-    @Autowired
-    ListService listService;
+    public CovidTrackingController(CovidTrackerService covidTrackerService, LastContactService lastContactService, ListService listService) {
+        this.covidTrackerService = covidTrackerService;
+        this.lastContactService = lastContactService;
+        this.listService = listService;
+    }
 
     @GetMapping(value = "/")
     public String getAll(Model model) {

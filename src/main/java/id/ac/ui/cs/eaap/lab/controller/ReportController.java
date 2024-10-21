@@ -16,8 +16,11 @@ import java.util.List;
 @RequestMapping("/report")
 public class ReportController {
 
-    @Autowired
-    CovidTrackerService covidTrackerService;
+    private final CovidTrackerService covidTrackerService;
+
+    public ReportController(CovidTrackerService covidTrackerService) {
+        this.covidTrackerService = covidTrackerService;
+    }
 
     @GetMapping(value = "/active")
     public String viewActiveCovidCase(Model model) {

@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/covid")
 public class CovidRestController {
 
-    @Autowired
-    CovidTrackerService covidTrackerService;
+    private final CovidTrackerService covidTrackerService;
+
+    public CovidRestController(CovidTrackerService covidTrackerService) {
+        this.covidTrackerService = covidTrackerService;
+    }
 
     @GetMapping("/all")
     public ResponseEntity getAllCovidCases() {
