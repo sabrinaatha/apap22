@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Tambah Kontak Terakhir - UTS 2022</title>
+  <object th:insert="~{fragments/fragment::css}" th:remove="tag"></object>
+  <object th:insert="~{fragments/fragment::js}" th:remove="tag"></object>
+  <script>
+    $(document).ready(function () {
+      $('#detailTable').DataTable({
+        "lengthMenu": [10, 20, 30]
+      });
+    });
+  </script>
+</head>
+<body>
+<nav th:replace="~{fragments/fragment::navbar(~{::home})}"></nav>
+
+<div class="container">
+  <div class="card m-4 p-4">
+    <div class="card-body">
+      <div class="justify-content-center">
+        <h2 class="mb-4">Tambah Kontak Terakhir</h2>
+        <form th:action="@{/last/add}" th:object="${lastContactModel}" method="POST">
+          <input class="form-control" type="hidden" th:field="*{caseContactId}" readonly/>
+          <input class="form-control" type="hidden" th:field="*{covidCaseModel.caseId}" readonly/>
+          <div class="form-group row">
+            <label for="nama" class="col-4 col-form-label">Nama</label>
+            <div class="col-8">
+              <input class="form-control" th:field="*{nama}" type="text"/>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="keterangan" class="col-4 col-form-label">Keterangan</label>
+            <div class="col-8">
+              <input id="keterangan" th:field="*{keterangan}" placeholder="tambahkan keterangan" type="text" class="form-control" required="required"/>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="offset-4 col-2">
+              <button name="save" type="submit" class="btn btn-primary">Tambah Kontak Terakhir</button>
+            </div>
+            <div class="col-2">
+              <a class="btn btn-primary" href="/">Home</a>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="justify-content-center">
+        <h2 class="mb-4 mt-5">Daftar Kontak Terakhir</h2>
+        <table class="table" id="detailTable">
+          <thead>
+          <tr>
+            <th>Nama</th>
+            <th>Keterangan</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr th:each="lastContact, stat : ${lastContactModelList}">
+              <td th:text="${lastContact.nama}"></td>
+              <td th:text="${lastContact.keterangan}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

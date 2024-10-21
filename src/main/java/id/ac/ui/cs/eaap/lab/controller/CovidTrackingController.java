@@ -1,7 +1,9 @@
 package id.ac.ui.cs.eaap.lab.controller;
 
 import id.ac.ui.cs.eaap.lab.model.CovidCaseModel;
+import id.ac.ui.cs.eaap.lab.model.LastContactModel;
 import id.ac.ui.cs.eaap.lab.service.CovidTrackerService;
+import id.ac.ui.cs.eaap.lab.service.LastContactService;
 import id.ac.ui.cs.eaap.lab.service.ListService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class CovidTrackingController {
 
     @Autowired
     CovidTrackerService covidTrackerService;
+
+    @Autowired
+    LastContactService lastContactService;
 
     @Autowired
     ListService listService;
@@ -93,4 +98,20 @@ public class CovidTrackingController {
         return "redirect:/covid/view-all";
     }
 
+    @GetMapping("/detail/{id}")
+    public String detail(@PathVariable Long id, Model model, RedirectAttributes redirectAttrs) {
+        CovidCaseModel covidCaseModel = covidTrackerService.findById(id);
+        model.addAttribute("covidCaseModel", covidCaseModel);
+
+        List<LastContactModel> lastContactModelList = lastContactService.getLastContactByRoom(covidCaseModel);
+        model.addAttribute("lastContactModelList", lastContactModelList);
+
+        LastContactModel lastContactModel = new LastContactModel();
+        lastContactModel.setCovidCaseModel(covidCaseModel);
+
+        model.addAttribute("lastContactModel", lastContactModel);
+        model.addAttribute("listService", listService);
+
+        return "case/detail";
+    }
 }

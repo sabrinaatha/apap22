@@ -3,6 +3,8 @@ package id.ac.ui.cs.eaap.lab.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -23,6 +25,10 @@ public class LastContactModel implements Serializable {
     @Column(name = "keterangan")
     private String keterangan;
 
-    // TODO: Relasi dengan CovidCaseModel
+    @ManyToOne
+    @JoinColumn(name = "covid_case_id", referencedColumnName = "case_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    CovidCaseModel covidCaseModel;
+
 
 }
