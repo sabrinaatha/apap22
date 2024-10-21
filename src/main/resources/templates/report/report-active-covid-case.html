@@ -43,7 +43,7 @@
             <td th:text="${case.fakultas}"></td>
             <td th:text="${case.peran}"></td>
             <td th:text="${case.tanggalGejalaPertama}"></td>
-            <td th:text="${countDate[stat.index]}"></td>
+            <td th:text="${case.getHariSetelahGejalaPertama()}"></td>
         </tr>
         </tbody>
     </table>

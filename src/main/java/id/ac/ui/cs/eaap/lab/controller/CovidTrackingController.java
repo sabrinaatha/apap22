@@ -67,8 +67,6 @@ public class CovidTrackingController {
     @GetMapping("/view-all")
     public String viewAllCovidCase(Model model) {
         List<CovidCaseModel> covidCaseModelList = covidTrackerService.findAll();
-        List<Long> countDate = covidTrackerService.getCountDate();
-        model.addAttribute("countDate", countDate);
         model.addAttribute("caseList", covidCaseModelList);
         return "case/view-all-covid-case";
     }
@@ -117,8 +115,6 @@ public class CovidTrackingController {
     @GetMapping("/search")
     public String searchByName(@RequestParam(name = "nama") String name, Model model, RedirectAttributes redirectAttrs) {
         var listCovid = covidTrackerService.findByName(name);
-        List<Long> countDate = covidTrackerService.getCountDate();
-        model.addAttribute("countDate", countDate);
         model.addAttribute("caseList", listCovid);
 
         return "case/view-all-covid-case";

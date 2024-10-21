@@ -42,7 +42,7 @@
             <td th:text="${case.status}"></td>
             <td th:text="${case.tanggalGejalaPertama}"></td>
             <td th:text="${case.fakultas}"></td>
-            <td th:text="${countDate[stat.index]}"></td>
+            <td th:text="${case.getHariSetelahGejalaPertama()}"></td>
             <td colspan="4">
                 <div class="text-center">
                     <a type="button" class="btn btn-md btn-primary"
