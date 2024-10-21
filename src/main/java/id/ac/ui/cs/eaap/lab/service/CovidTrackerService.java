@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class CovidTrackerService {
@@ -39,7 +40,7 @@ public class CovidTrackerService {
         Date date = new Date();
 
         for(CovidCaseModel covid : allCase) {
-            long value = date.getTime() - covid.getTanggalGejalaPertama().getTime();
+            long value = TimeUnit.DAYS.convert(date.getTime() - covid.getTanggalGejalaPertama().getTime(), TimeUnit.MILLISECONDS);
             result.add(value);
         }
         return result;
